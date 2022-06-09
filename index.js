@@ -22,10 +22,10 @@ const run = async () => {
       app.get('/products',async(req,res) =>{
         const query = {};
         const cursor = database.find(query);
-       const products =  await cursor.toArray();
+       const products =  await cursor.limit(20).toArray();
        res.send(products);
       })
-        // await cursor.forEach(console.dir);
+        
     }
     finally{
 
