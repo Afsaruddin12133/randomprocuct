@@ -22,8 +22,14 @@ const run = async () => {
       app.get('/products',async(req,res) =>{
         const query = {};
         const cursor = database.find(query);
-       const products =  await cursor.limit(20).toArray();
+       const products =  await cursor.toArray();
        res.send(products);
+      })
+      app.get('/productscount',async(req,res) =>{
+        const query = {};
+        const cursor = database.find(query);
+       const productcount =  await cursor.count();
+       res.send({productcount});
       })
         
     }
