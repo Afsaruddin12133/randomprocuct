@@ -19,10 +19,11 @@ const run = async () => {
     try{
         await client.connect();
         const database = client.db("randomproduct").collection("product");
-      app.get('/products',(req,res) =>{
+      app.get('/products',async(req,res) =>{
         const query = {};
         const cursor = database.find(query);
-        res.send(cursor);
+       const products =  await cursor.toArray();
+       res.send(products);
       })
         // await cursor.forEach(console.dir);
     }
