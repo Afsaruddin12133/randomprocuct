@@ -20,9 +20,17 @@ const run = async () => {
         await client.connect();
         const database = client.db("randomproduct").collection("product");
       app.get('/products',async(req,res) =>{
+        const page = req.query.page;
+        const size = req.query.size;
         const query = {};
         const cursor = database.find(query);
-       const products =  await cursor.toArray();
+        let products;
+        if(page || size){
+          products =  await cursor.skip(page*size).limit(size).toArray();
+        }else{
+          products =  await cursor.toArray();
+        }
+      
        res.send(products);
       })
       app.get('/productscount',async(req,res) =>{
